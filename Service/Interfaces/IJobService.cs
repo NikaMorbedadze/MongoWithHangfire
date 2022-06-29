@@ -2,7 +2,10 @@
 {
     public interface IJobService
     {
-        void Semd(string txt);
+        void FireAndForgetJob();
+        void ReccuringJob();
+        void DelayedJob();
+        void ContinuationJob();
 
     }
 }

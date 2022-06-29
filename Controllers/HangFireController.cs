@@ -10,19 +10,30 @@ namespace MongoWithHangfire.Controllers
     {
         private readonly IFileService _service;
         private readonly IJobService _jobService;
-        public HangFireController(IJobService jobService , IFileService service)
+        private readonly IBackgroundJobClient _backgroundJobClient;
+        private readonly IRecurringJobManager _recurringJobManager;
+        public HangFireController(IJobService jobService, IFileService service, IBackgroundJobClient backgroundJobClient, IRecurringJobManager recurringJobManager)
         {
             _jobService = jobService;
             _service = service;
+            _backgroundJobClient = backgroundJobClient;
+            _recurringJobManager = recurringJobManager;
         }
 
         [HttpPost]
         [Route("[action]")]
         public IActionResult Welcome()
         {
-             //RecurringJob.AddOrUpdate(() => Console.WriteLine("Hello"), "*/2 * * * *");
-            return Ok( "done");
+            _backgroundJobClient.Enqueue(() => _jobService.FireAndForgetJob());
+            return Ok();
 
+        }
+
+        [HttpGet("/ReccuringJob")]
+        public ActionResult CreateReccuringJob()
+        {
+            _recurringJobManager.AddOrUpdate("jobId", () => _jobService.ReccuringJob(), Cron.Minutely);
+            return Ok();
         }
 
 
