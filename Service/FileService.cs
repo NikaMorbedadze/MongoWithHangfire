@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoWithHangfire.Data;
 using MongoWithHangfire.Entity;
@@ -9,6 +10,7 @@ namespace MongoWithHangfire.Service;
 public class FileService : IFileService
 {
     private readonly IMongoCollection<FileModel> _files;
+
     public FileService(IOptions<MongoDbSettings> options)
     {
         var mongoClient = new MongoClient(options.Value.ConnectionString);
@@ -28,7 +30,7 @@ public class FileService : IFileService
     public async Task Delete(string id) =>
         await _files.DeleteManyAsync(f => f.Id == id);
 
+ 
     public async Task Update(string id, FileModel file) =>
         await _files.ReplaceOneAsync(f => f.Id == id, file);
-
 }

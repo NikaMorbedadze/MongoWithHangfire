@@ -11,6 +11,7 @@ namespace MongoWithHangfire.Controllers
     public class FileController : ControllerBase
     {
         private readonly IFileService _service;
+
         public FileController(IFileService service)
         {
             _service = service;
@@ -21,11 +22,11 @@ namespace MongoWithHangfire.Controllers
         {
             return await _service.Get();
         }
+
         [HttpPost]
-        public async Task Create(FileModel file)
+        public async Task Create([FromQuery] FileModel file)
         {
             await _service.Create(file);
         }
-
     }
 }
