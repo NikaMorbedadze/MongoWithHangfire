@@ -5,8 +5,7 @@ namespace MongoWithHangfire.Entity;
 
 public class CarModel
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
+    [BsonId, BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
     public string Mark { get; set; }
