@@ -28,5 +28,12 @@ namespace MongoWithHangfire.Controllers
         {
             await _service.Create(file);
         }
+
+        [HttpPost("/list")]
+        public async Task<List<FileModel>> Create(string filePath)
+        {
+            await _service.CreateMany(filePath);
+            return null;
+        }
     }
 }

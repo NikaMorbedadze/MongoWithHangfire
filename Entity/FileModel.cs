@@ -5,11 +5,13 @@ namespace MongoWithHangfire.Entity;
 
 public class FileModel
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-    public string FileName { get; set; }
-    public string Path { get; set; }
-    public DateTime DateCreated { get; set; }
+    [BsonElement("_id")] public ObjectId Id { get; } = ObjectId.GenerateNewId();
 
+    [BsonElement("Georgian")]
+    [BsonRepresentation(BsonType.String)]
+    public string? NameGeo { get; set; }
+
+    [BsonElement("English")]
+    [BsonRepresentation(BsonType.String)]
+    public string? NameEng { get; set; }
 }

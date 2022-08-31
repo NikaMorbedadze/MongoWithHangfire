@@ -29,7 +29,7 @@ namespace MongoWithHangfire.Service
         public void ReccuringJob()
         {
             var date = DateTime.Now.ToString("d");
-            var files = _service.Get().Result.FindAll(x=>x.DateCreated.ToString("d")== date);
+            //var files = _service.Get().Result.FindAll(x=>x.DateCreated.ToString("d")== date);
             
         }
     }
